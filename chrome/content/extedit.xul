@@ -13,6 +13,9 @@
 		src="chrome://global/content/nsUserSettings.js"/>
 
 	<script type="application/x-javascript"
+		src="chrome://extedit/content/nsPreferences.js"/>
+
+	<script type="application/x-javascript"
 		src="chrome://extedit/content/pref.js" />
 
 	<script type="application/x-javascript"

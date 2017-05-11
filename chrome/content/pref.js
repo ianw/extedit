@@ -1,67 +1,3 @@
-/*
- * customPrefs wrapper sourced from:
- *   http://qiita.com/sayamada/items/d6d26a3c2e9613854019
- * Thanks sayamada!
- */
-var customPrefs = {
-
-	orgPrefs: Components.classes["@mozilla.org/preferences-service;1"]
-		.getService(Components.interfaces.nsIPrefService)
-		.getBranch(""),
-
-	copyUnicharPref: function(key, defaultVal) {
-		if (defaultVal === undefined) {
-			defaultVal = "";
-		}
-		var val = undefined;
-		try {
-			val = this.orgPrefs.getComplexValue(key, Components.interfaces.nsISupportsString).data;
-		} catch (e) {
-			console.log(e);
-		}
-		if (val !== undefined && val !== "") {
-			return val;
-		} else {
-			return defaultVal;
-		}
-	},
-	setUnicharPref: function(key, val) {
-		var str = Components.classes["@mozilla.org/supports-string;1"]
-			.createInstance(Components.interfaces.nsISupportsString);
-		str.data = val;
-		this.orgPrefs.setComplexValue(key, Components.interfaces.nsISupportsString, str);
-	},
-	getBoolPref: function(key, defaultVal) {
-		try {
-			var tmpVal = this.orgPrefs.getBoolPref(key);
-			if (tmpVal || tmpVal === "true") {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (e) {
-			return defaultVal;
-		}
-	},
-	setBoolPref: function(key, val) {
-		if (val || val === "true") {
-			this.orgPrefs.setBoolPref(key, true);
-		} else {
-			this.orgPrefs.setBoolPref(key, false);
-		}
-	},
-	getIntPref: function(key, defaultVal) {
-		try {
-			return this.orgPrefs.getIntPref(key);
-		} catch (e) {
-			return defaultVal;
-		}
-	},
-	setIntPref: function(key, val) {
-		this.orgPrefs.setIntPref(key, val);
-	},
-};
-
 //-----------------------------------------------------------------------------
 var strbundle;
 function getLocaleString(aName)
@@ -91,13 +27,13 @@ function AFgetPrefString(objId) {
 
 //-----------------------------------------------------------------------------
 function AFreadPref(prefStr, defValue) {
-	var typ = customPrefs.mPrefService.getPrefType(prefStr);
+	var typ = nsPreferences.mPrefService.getPrefType(prefStr);
 	if (typ & 128) {
-		return customPrefs.getBoolPref(prefStr, defValue);
+		return nsPreferences.getBoolPref(prefStr, defValue);
 	} else if (typ & 64) {
-		return customPrefs.getIntPref(prefStr, defValue);
+		return nsPreferences.getIntPref(prefStr, defValue);
 	} else if (typ & 32) {
-		return customPrefs.copyUnicharPref(prefStr, defValue);
+		return nsPreferences.copyUnicharPref(prefStr, defValue);
 	} else {
 		alert(prefStr + ": " + getLocaleString("PrefTypeNotSupported") + ": " + typ);
 	}
@@ -125,11 +61,11 @@ function AFgetObjPref(objId, defValue) {
 
 	var val;
 	if (typ=="bool") {
-		val=customPrefs.getBoolPref(str, defValue);
+		val=nsPreferences.getBoolPref(str, defValue);
 	} else if (typ=="int") {
-		val=customPrefs.getIntPref(str, defValue);
+		val=nsPreferences.getIntPref(str, defValue);
 	} else if (typ=="string") {
-		val=customPrefs.copyUnicharPref(str, defValue);
+		val=nsPreferences.copyUnicharPref(str, defValue);
 	} else {
 		alert(objId + ": " + getLocaleString("PrefTypeNotSupported") + ": " + typ);
 		return;
@@ -150,11 +86,11 @@ function AFwriteObjPref(objId) {
 	eval("val=obj."+atr);
 
 	if (typ=="bool") {
-		customPrefs.setBoolPref(str, val);
+		nsPreferences.setBoolPref(str, val);
 	} else if (typ=="int") {
-		customPrefs.setIntPref(str, val);
+		nsPreferences.setIntPref(str, val);
 	} else if (typ=="string") {
-		customPrefs.setUnicharPref(str, val);
+		nsPreferences.setUnicharPref(str, val);
 	} else {
 		alert(objId + ": " + getLocaleString("PrefTypeNotSupported") + ": " + typ);
 		return;
