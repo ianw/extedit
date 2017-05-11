@@ -6,7 +6,7 @@
 		<id>{ca8dd6ef-b3ce-4175-94fd-0eca45382519}</id>
 		<name>ExtEdit</name>
 		<type>2</type>
-		<version>0.0.1</version>
+		<version>2.0.0</version>
 		<!-- description done with the prefs.js and locale/properties files -->
 		<!-- Based on the External Editor extension by Alexandre Feblot. -->
 		<creator>brian m. carlson</creator>
