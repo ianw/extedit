@@ -13,7 +13,9 @@ To build, simply type `make`.
 Installation
 ------------
 
-Either download the XPI or make it from source.
+Either download the XPI from the
+[releases](https://github.com/ianw/extedit/releases) or make it from
+source.
 
 In thunderbird, go `Tools -> Add-Ons -> Extensions` and select the
 gear to install.  Restart as required.  You can update preferences
@@ -22,6 +24,17 @@ here, such as the path to the editor.
 When editing an email, you will have `Tools -> Edit in External
 Editor`.  You can also right-click on the toolbar and `Customize` to
 add a button, or use the `ctrl-E` shortcut.
+
+Development
+-----------
+
+To use a development version, clone the git tree, then place a file
+called `{ca8dd6ef-b3ce-4175-94fd-0eca45382519}` in your profile
+extension directory (`~/.thunderbird/xxxxxxxx.default/extensions`)
+that contains just the path to the extension directory.
+
+`Tools -> Developer Tools -> Error Console` can then be helpful for
+diagnosing issues.
 
 License
 -------
